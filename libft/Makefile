@@ -6,7 +6,7 @@
 #    By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 18:11:04 by mbuchs            #+#    #+#              #
-#    Updated: 2023/11/05 04:13:13 by mbuchs           ###   ########.fr        #
+#    Updated: 2023/11/05 16:32:47 by mbuchs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,21 +65,21 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 %.o : %.c
-	$(COMP) $(CFLAGS) -o $@ -c $<
+	@$(COMP) $(CFLAGS) -o $@ -c $<
 
 $(NAME) : $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+	@ar -rcs $(NAME) $(OBJ)
 
 so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
-	gcc -nostartfiles -shared -o libft.so $(OBJBONUS)
+	@$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
+	@gcc -nostartfiles -shared -o libft.so $(OBJBONUS)
 
 clean :
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean : clean
-	rm -f $(NAME)
-	rm -f libft.so
+	@rm -f $(NAME)
+	@rm -f libft.so
 
 re : fclean all
 
