@@ -6,7 +6,7 @@
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:33:09 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/11/05 18:58:48 by mbuchs           ###   ########.fr       */
+/*   Updated: 2023/11/05 23:12:33 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 # include "../libft/libft.h"
 
 int	ft_printf(const char *str, ...);
+int	switch_printf(char c, va_list args);
 
 #endif

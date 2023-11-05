@@ -6,7 +6,7 @@
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:35:06 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/11/05 18:49:16 by mbuchs           ###   ########.fr       */
+/*   Updated: 2023/11/05 23:14:20 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int main()
 {
-	ft_printf("Test char : %c\nTest  str : %s", 'a', "test");
-	
+	ft_printf("Test char : %c\nTest  str : %s\n", 'a', "test");
+	ft_printf("Test int : %u %u\n", 43, -43);
+	printf("%u %u", 43, -43);
 }

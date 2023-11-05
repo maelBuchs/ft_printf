@@ -1,40 +1,74 @@
-NAME	 =	libftprintf.a
-COMP	 =	clang
-CFLAGS	 =	-Wall -Werror -Wextra
-HEAD	=	includes/ft_printf.h
-libft	=	libft/
-SRC		=	main.c\
-			srcs/ft_printf.c
+NAME = libft.a
+COMP = cc
+CFLAGS = -Wall -Werror -Wextra
+COUNT = 0
+TOTAL_FILES := 43
+RESET    =    $(shell echo "\033[0m")
+BCyan    =    $(shell echo "\033[1;36m")
+
+LIB = ft_strlen.c\
+    ft_atoi.c\
+    ft_strdup.c\
+    ft_strlcat.c\
+    ft_strlcpy.c\
+    ft_strncmp.c\
+    ft_isalpha.c\
+    ft_isdigit.c\
+    ft_isalnum.c\
+    ft_isascii.c\
+    ft_bzero.c\
+    ft_calloc.c\
+    ft_isprint.c\
+    ft_tolower.c\
+    ft_toupper.c\
+    ft_strchr.c\
+    ft_strrchr.c\
+    ft_memset.c\
+    ft_strnstr.c\
+    ft_memcmp.c\
+    ft_memcpy.c\
+    ft_memmove.c\
+    ft_memchr.c\
+
+ADDITIONAL = ft_substr.c\
+    ft_strjoin.c\
+    ft_strtrim.c\
+    ft_split.c\
+    ft_itoa.c\
+    ft_strmapi.c\
+    ft_striteri.c\
+    ft_putchar_fd.c\
+    ft_putstr_fd.c\
+    ft_putendl_fd.c\
+    ft_putnbr_fd.c\
+
+BONUS =    ft_lstadd_back_bonus.c\
+    ft_lstadd_front_bonus.c\
+    ft_lstlast_bonus.c\
+    ft_lstnew_bonus.c\
+    ft_lstsize_bonus.c\
+    ft_lstdelone_bonus.c\
+    ft_lstclear_bonus.c\
+    ft_lstiter_bonus.c\
+    ft_lstmap_bonus.c\
+
+SRC = $(LIB) $(ADDITIONAL) $(BONUS)
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
-t : test
 
 %.o : %.c
-	@$(COMP) $(CFLAGS) -o $@ -c $< -I $(HEAD)
+    @$(COMP) -fPIC $(CFLAGS) -o $@ -c $<
 
 $(NAME) : $(OBJ)
-	@make --no-print-directory -C $(libft)
-	@cp libft/libft.a libft.a
-	@ar -rcs $(NAME) $(OBJ) libft.a
-
-
-test : $(OBJ)
-	@make --no-print-directory -C $(libft)
-	@cp libft/libft.a libft.a
-	gcc -g $(CFLAGS) -o ft_printf $(OBJ) libft.a
+    @ar -rcs $(NAME) $(OBJ)
 
 clean :
-	@make clean --no-print-directory -C $(libft)
-	@rm -f $(OBJ)
-
-
+    @rm -f $(OBJ)
 
 fclean : clean
-	@make fclean --no-print-directory -C $(libft)
-	@rm -f $(NAME) libft.a
-
+    @rm -f $(NAME)
 
 re : fclean all
 
