@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 18:33:09 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/11/05 04:10:03 by mbuchs           ###   ########.fr       */
+/*   Created: 2023/11/05 04:06:45 by mbuchs            #+#    #+#             */
+/*   Updated: 2023/11/05 04:20:18 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "../includes/ft_printf.h"
 
-# include <stdio.h>
-
-int	ft_printf(const char *str, ...);
-
-
-#endif
+int	ft_printf(const char *str, ...)
+{
+	printf("%s", str);
+	return (0);
+}

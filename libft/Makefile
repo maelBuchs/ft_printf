@@ -6,7 +6,7 @@
 #    By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 18:11:04 by mbuchs            #+#    #+#              #
-#    Updated: 2023/11/03 18:11:04 by mbuchs           ###   ########.fr        #
+#    Updated: 2023/11/05 04:13:13 by mbuchs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,7 @@ LIB = ft_strlen.c\
 	ft_memcpy.c\
 	ft_memmove.c\
 	ft_memchr.c\
-
-ADDITIONAL = ft_substr.c\
+	ft_substr.c\
 	ft_strjoin.c\
 	ft_strtrim.c\
 	ft_split.c\
@@ -49,8 +48,7 @@ ADDITIONAL = ft_substr.c\
 	ft_putstr_fd.c\
 	ft_putendl_fd.c\
 	ft_putnbr_fd.c\
-
-BONUS =	ft_lstadd_back_bonus.c\
+	ft_lstadd_back_bonus.c\
 	ft_lstadd_front_bonus.c\
 	ft_lstlast_bonus.c\
 	ft_lstnew_bonus.c\
@@ -61,10 +59,8 @@ BONUS =	ft_lstadd_back_bonus.c\
 	ft_lstmap_bonus.c\
 
 SRC = $(LIB) $(ADDITIONAL)
-SRCS = $(LIB) $(ADDITIONAL) $(BONUS)
 
 OBJ = $(SRC:.c=.o)
-OBJBONUS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
@@ -74,15 +70,12 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
 
-bonus : $(OBJBONUS)
-	ar -rcs $(NAME) $(OBJBONUS)
-
 so:
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
 	gcc -nostartfiles -shared -o libft.so $(OBJBONUS)
 
 clean :
-	rm -f $(OBJBONUS)
+	rm -f $(OBJ)
 
 fclean : clean
 	rm -f $(NAME)
