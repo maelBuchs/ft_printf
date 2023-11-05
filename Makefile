@@ -1,6 +1,6 @@
 NAME	 =	libftprintf.a
 COMP	 =	clang
-CFLAGS	 =	#-Wall -Werror -Wextra
+CFLAGS	 =	-Wall -Werror -Wextra
 HEAD	=	includes/ft_printf.h
 libft	=	libft/
 SRC		=	main.c\
@@ -23,7 +23,7 @@ $(NAME) : $(OBJ)
 test : $(OBJ)
 	@make --no-print-directory -C $(libft)
 	@cp libft/libft.a libft.a
-	@gcc -g $(CFLAGS) -o ft_printf $(OBJ) libft.a
+	gcc -g $(CFLAGS) -o ft_printf $(OBJ) libft.a
 
 clean :
 	@make clean --no-print-directory -C $(libft)
