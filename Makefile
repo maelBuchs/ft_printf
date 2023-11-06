@@ -1,74 +1,53 @@
-NAME = libft.a
-COMP = cc
-CFLAGS = -Wall -Werror -Wextra
-COUNT = 0
-TOTAL_FILES := 43
-RESET    =    $(shell echo "\033[0m")
-BCyan    =    $(shell echo "\033[1;36m")
+BGreen	=	$(shell echo "\033[1;32m")
+RESET	=	$(shell echo "\033[0m")
+BRed	=	$(shell echo "\033[1;31m")
+NAME	 =	libftprintf.a
+COMP	 =	gcc
+CFLAGS	 =	-Wall -Werror -Wextra
+HEAD	=	includes/
+libft	=	libft/
+SRC		=	main.c\
+			srcs/ft_printf.c\
 
-LIB = ft_strlen.c\
-    ft_atoi.c\
-    ft_strdup.c\
-    ft_strlcat.c\
-    ft_strlcpy.c\
-    ft_strncmp.c\
-    ft_isalpha.c\
-    ft_isdigit.c\
-    ft_isalnum.c\
-    ft_isascii.c\
-    ft_bzero.c\
-    ft_calloc.c\
-    ft_isprint.c\
-    ft_tolower.c\
-    ft_toupper.c\
-    ft_strchr.c\
-    ft_strrchr.c\
-    ft_memset.c\
-    ft_strnstr.c\
-    ft_memcmp.c\
-    ft_memcpy.c\
-    ft_memmove.c\
-    ft_memchr.c\
-
-ADDITIONAL = ft_substr.c\
-    ft_strjoin.c\
-    ft_strtrim.c\
-    ft_split.c\
-    ft_itoa.c\
-    ft_strmapi.c\
-    ft_striteri.c\
-    ft_putchar_fd.c\
-    ft_putstr_fd.c\
-    ft_putendl_fd.c\
-    ft_putnbr_fd.c\
-
-BONUS =    ft_lstadd_back_bonus.c\
-    ft_lstadd_front_bonus.c\
-    ft_lstlast_bonus.c\
-    ft_lstnew_bonus.c\
-    ft_lstsize_bonus.c\
-    ft_lstdelone_bonus.c\
-    ft_lstclear_bonus.c\
-    ft_lstiter_bonus.c\
-    ft_lstmap_bonus.c\
-
-SRC = $(LIB) $(ADDITIONAL) $(BONUS)
+#ft_printf2.c\
+#ft_printf3.c\
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 %.o : %.c
-    @$(COMP) -fPIC $(CFLAGS) -o $@ -c $<
+	@$(COMP) -fPIC $(CFLAGS) -o $@ -c $< -I $(HEAD)
+
+#$(NAME) : $(OBJ)
+#	@make --no-print-directory -C $(libft)
+#	@ar -rcs $(NAME) $(OBJ) libft/libft.a
+#	gcc -g $(CFLAGS) -o ft_printf $(OBJ) libft.a
+#	@echo "$(BGreen)Compilation OK$(RESET)"
+  
 
 $(NAME) : $(OBJ)
-    @ar -rcs $(NAME) $(OBJ)
+	@make --no-print-directory -C $(libft)
+	@mkdir -p temp_libft_objs
+	@cd temp_libft_objs && ar -x ../libft/libft.a
+	@ar -rcs $(NAME) $(OBJ) temp_libft_objs/*.o
+	@rm -rf temp_libft_objs
+	@echo "$(BGreen)Compilation OK$(RESET)"
+	
 
 clean :
-    @rm -f $(OBJ)
+	@make clean --no-print-directory -C $(libft)
+	@rm -f $(OBJ)
+	@echo "$(BRed)Erase .o files$(RESET)"
+
 
 fclean : clean
-    @rm -f $(NAME)
+	@make fclean --no-print-directory -C $(libft)
+	@rm -f $(NAME) libft.a
+	@echo "$(BRed)Erase $(NAME) and libft.a$(RESET)"
+
+test : re
+	@gcc -g main.c srcs/ft_printf.c -L./libft -lft -o test && ./test
 
 re : fclean all
 

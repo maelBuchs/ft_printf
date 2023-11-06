@@ -6,7 +6,7 @@
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:06:45 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/11/06 00:13:03 by mbuchs           ###   ########.fr       */
+/*   Updated: 2023/11/06 02:16:55 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,45 @@ void unsigned_printf(int n)
 	ft_putnbr_fd(n, 1);
 }
 
-int switch_printf(char c, va_list args)
+int	printf_putstr (va_list args)
 {
+	char *str;
 
+	str =  va_arg(args, char*);
+	ft_putstr_fd(str, 1);
+	return (ft_strlen(str));
+}
+
+
+int	print_hexa(va_list args)
+{
+	char	*str;
+	int		n;
+
+	n = va_arg(args, int);
+	str = "0123456789abcdef";
+	while (n)
+	{
+		ft_putchar_fd(str[n % 16], 1);
+		n /= 10;
+	}
+	return (15);
+}
+
+int	switch_printf(char c, va_list args)
+{
+	int	returned;
+
+	returned = 0;
 	if (c == 'c')
+	{
 		ft_putchar_fd(va_arg(args, int), 1);	//print single char
+		returned = 1;
+	}
 	else if (c == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);	//print string
+		returned = printf_putstr(args); //print string
 	else if (c == 'p')
-		ft_putnbr_fd(va_arg(args, int), 1);	//print void * pointer in hexa
+		returned = print_hexa(args);	//print void * pointer in hexa
 	else if (c == 'd')
 		ft_putnbr_fd(va_arg(args, int), 1);	//print base 10 (decimal)
 	else if (c == 'i')
@@ -39,28 +69,36 @@ int switch_printf(char c, va_list args)
 	else if (c == 'X')
 		ft_putchar_fd('X', 1);	//print base 16 uppercase
 	else if (c == '%')
+	{
 		ft_putchar_fd('%', 1);	//print litteraly just %
-	return(0);
+		return (1);
+	}
+	return (returned);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list		args;
-	int	i;
-	
+	int			i;
+	int			returned;
+
+	returned = 0;
 	i = 0;
 	va_start (args, str);
 	while(str[i])
 	{
 		if(str[i] == '%')
 		{
-			switch_printf(str[i + 1], args);
+			returned += switch_printf(str[i + 1], args);
 			i++;
 		}
 		else
+		{
 			ft_putchar_fd(str[i], 1);
+			returned++;
+		}
 		i++;
 	}
 	va_end (args);
-	return (0);
+	return (returned);
 }
