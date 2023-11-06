@@ -8,6 +8,7 @@ HEAD	=	includes/
 libft	=	libft/
 SRC		=	main.c\
 			srcs/ft_printf.c\
+			srcs/print_hexa.c\
 
 #ft_printf2.c\
 #ft_printf3.c\

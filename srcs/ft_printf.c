@@ -6,7 +6,7 @@
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:06:45 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/11/06 02:16:55 by mbuchs           ###   ########.fr       */
+/*   Updated: 2023/11/06 03:14:05 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,6 @@ int	printf_putstr (va_list args)
 	return (ft_strlen(str));
 }
 
-
-int	print_hexa(va_list args)
-{
-	char	*str;
-	int		n;
-
-	n = va_arg(args, int);
-	str = "0123456789abcdef";
-	while (n)
-	{
-		ft_putchar_fd(str[n % 16], 1);
-		n /= 10;
-	}
-	return (15);
-}
 
 int	switch_printf(char c, va_list args)
 {
