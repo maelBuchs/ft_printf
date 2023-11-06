@@ -12,32 +12,37 @@
 
 #include "../includes/ft_printf.h"
 
-
-char	*ft_itohex(unsigned long long n, int caps)
+unsigned int	print_unsigned_int(long int n)
 {
-	int		len;
-	char	*str;
+	if (n < 0)
+		n = 4294967295 + n - 1;
+	ft_putnbr_fd(n, 1);
+	return (num_len(n, 10));
+}
 
-	len = 16;
-	str = ft_calloc(sizeof(char), (len + 1));
+int	print_hexa_nbr(va_list args, int caps)
+{
+	int				*n;
+	unsigned long	n2;
+	char			*str;
+	int				len;
+
+	n = va_arg(args, int *);
+	n2 = (unsigned long)n;
+	str = ft_itohex(n2, caps, 16);
 	if (str == NULL)
-		return (NULL);
-	len--;
-	while (len >= 0)
 	{
-		str[len] = "0123456789abcdef"[n % 16];
-		n /= 16 ;
-		len--;
+		ft_putstr_fd("0", 1);
+		return (1);
 	}
-	if (caps == 1)
-	{
-		len = 0;
-		while (str[len])
-		{
-			str[len] = ft_toupper(str[len]);
-			len++;
-		}
-		
-	}
-	return (str);
+	len = ft_strlen(str);
+	ft_putstr_fd(str, 1);
+	free(str);
+	return (len);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
 }

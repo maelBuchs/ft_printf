@@ -18,7 +18,7 @@ int	main(void)
 	int	gay;
 
 	test = &gay;
-	printf("\nft printf : %d\n", ft_printf(" %p", test));
-	printf("\nprintf : %d\n", printf(" %p", test));
+	printf("\nprintf : %d\n",ft_printf("%p", test));
+	printf("\nprintf : %d\n", printf("%p", test));
 	return (0);
 }

@@ -12,63 +12,63 @@
 
 #include "../includes/ft_printf.h"
 
-void unsigned_printf(int n)
+int	printf_putstr(va_list args)
 {
-	if (n < 0)
-		n = 4294967295 - n;
-	ft_putnbr_fd(n, 1);
-}
+	char	*str;
 
-int	printf_putstr (va_list args)
-{
-	char *str;
-
-	str =  va_arg(args, char*);
+	str = va_arg(args, char *);
+	if (!str)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
 	ft_putstr_fd(str, 1);
 	return (ft_strlen(str));
 }
 
-int	print_hexa(va_list args, int caps)
+int	print_hexa(va_list args)
 {
-	int *n;
+	int		*n;
+	char	*str;
+	int		len;
 
 	n = va_arg(args, int *);
-	(void) caps;
+	str = ft_itobase((unsigned long) n, 0, 16);
+	if (str == NULL || n == 0)
+	{
+		ft_putstr_fd("(nil)", 1);
+		free (str);
+		return (5);
+	}
+	len = ft_strlen(str) + 2;
 	ft_putstr_fd("0x", 1);
-	ft_putstr_fd(&(ft_itohex((unsigned long long) n, 0)[4]), 1);
-	return (14);
+	ft_putstr_fd(str, 1);
+	free(str);
+	return (len);
 }
 
 int	switch_printf(char c, va_list args)
 {
-	int	returned;
-
-	returned = 0;
 	if (c == 'c')
-	{
-		ft_putchar_fd(va_arg(args, int), 1);	//print single char
-		returned = 1;
-	}
+		return (ft_putchar(va_arg(args, int)));
 	else if (c == 's')
-		returned = printf_putstr(args); //print string
+		return (printf_putstr(args));
 	else if (c == 'p')
-		returned = print_hexa(args, 0);	//print void * pointer in hexa
+		return (print_hexa(args));
 	else if (c == 'd')
-		ft_putnbr_fd(va_arg(args, int), 1);	//print base 10 (decimal)
+		return (print_int(va_arg(args, int)));
 	else if (c == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);	//print base 10 (int)
+		return (print_int(va_arg(args, int)));
 	else if (c == 'u')
-		unsigned_printf(va_arg(args, unsigned int));	//print base 10 (unsigned)
+		return (print_unsigned_int(va_arg(args, unsigned int)));
 	else if (c == 'x')
-		ft_putchar_fd('x', 1);	//print base 16 lowercase
+		return (print_hexa_nbr(args, 0));
 	else if (c == 'X')
-		ft_putchar_fd('X', 1);	//print base 16 uppercase
+		return (print_hexa_nbr(args, 1));
 	else if (c == '%')
-	{
-		ft_putchar_fd('%', 1);	//print litteraly just %
-		return (1);
-	}
-	return (returned);
+		return (ft_putchar('%'));
+	else
+		return (0);
 }
 
 int	ft_printf(const char *str, ...)
@@ -80,9 +80,9 @@ int	ft_printf(const char *str, ...)
 	returned = 0;
 	i = 0;
 	va_start (args, str);
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '%')
+		if (str[i] == '%')
 		{
 			returned += switch_printf(str[i + 1], args);
 			i++;
