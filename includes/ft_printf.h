@@ -20,8 +20,8 @@ int		ft_printf(const char *str, ...);
 int		switch_printf(char c, va_list args);
 void	unsigned_printf(int n);
 int		printf_putstr (va_list args);
-char	*ft_itoa(int n);
 void	neg_nbr(unsigned int n, int len, char **str);
 int	ft_numlen(long long int n);
-
+int	print_hexa(va_list args, int caps);
+char	*ft_itohex(unsigned long long n, int caps);
 #endif

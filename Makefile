@@ -48,7 +48,7 @@ fclean : clean
 	@echo "$(BRed)Erase $(NAME) and libft.a$(RESET)"
 
 test : re
-	@gcc -g main.c srcs/ft_printf.c -L./libft -lft -o test && ./test
+	@gcc -g main.c srcs/ft_printf.c srcs/print_hexa.c -L./libft -lft -o test && ./test
 
 re : fclean all
 

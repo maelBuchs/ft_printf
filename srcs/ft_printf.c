@@ -28,6 +28,16 @@ int	printf_putstr (va_list args)
 	return (ft_strlen(str));
 }
 
+int	print_hexa(va_list args, int caps)
+{
+	int *n;
+
+	n = va_arg(args, int *);
+	(void) caps;
+	ft_putstr_fd("0x", 1);
+	ft_putstr_fd(&(ft_itohex((unsigned long long) n, 0)[4]), 1);
+	return (14);
+}
 
 int	switch_printf(char c, va_list args)
 {
@@ -42,7 +52,7 @@ int	switch_printf(char c, va_list args)
 	else if (c == 's')
 		returned = printf_putstr(args); //print string
 	else if (c == 'p')
-		returned = print_hexa(args);	//print void * pointer in hexa
+		returned = print_hexa(args, 0);	//print void * pointer in hexa
 	else if (c == 'd')
 		ft_putnbr_fd(va_arg(args, int), 1);	//print base 10 (decimal)
 	else if (c == 'i')

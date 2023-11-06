@@ -12,61 +12,32 @@
 
 #include "../includes/ft_printf.h"
 
-int	ft_numlen(long long int n)
-{
-	int	len;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-	{
-		n = -n;
-		len++;
-	}
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-void	neg_nbr(unsigned int n, int len, char **str)
-{
-	(*str) = ft_calloc((len + 1), sizeof(char));
-	if ((*str) == NULL)
-		return ;
-	(*str)[0] = '-';
-	len--;
-	while (len > 0)
-	{
-		(*str)[len] = n % 10 + '0';
-		n /= 10;
-		len--;
-	}
-}
-
-char	*ft_itoa(int n)
+char	*ft_itohex(unsigned long long n, int caps)
 {
 	int		len;
 	char	*str;
-	char	nb;
+
 	len = 16;
-	if (n < 0)
-	{
-		neg_nbr(-n, len, &str);
-		return (str);
-	}
 	str = ft_calloc(sizeof(char), (len + 1));
 	if (str == NULL)
 		return (NULL);
 	len--;
 	while (len >= 0)
 	{
-		str[len] = n % 16 + '0';
-		n /= 10;
+		str[len] = "0123456789abcdef"[n % 16];
+		n /= 16 ;
 		len--;
+	}
+	if (caps == 1)
+	{
+		len = 0;
+		while (str[len])
+		{
+			str[len] = ft_toupper(str[len]);
+			len++;
+		}
+		
 	}
 	return (str);
 }
