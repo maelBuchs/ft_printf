@@ -12,14 +12,6 @@
 
 #include "../includes/ft_printf.h"
 
-unsigned int	print_unsigned_int(long int n)
-{
-	if (n < 0)
-		n = 4294967295 + n - 1;
-	ft_putnbr_fd(n, 1);
-	return (num_len(n, 10));
-}
-
 int	print_hexa_nbr(va_list args, int caps)
 {
 	int				*n;
@@ -41,8 +33,74 @@ int	print_hexa_nbr(va_list args, int caps)
 	return (len);
 }
 
-int	ft_putchar(char c)
+int	num_len(unsigned long n, int base)
 {
-	write(1, &c, 1);
-	return (1);
+	int	i;
+
+	i = 0;
+	if (!n)
+		return (1);
+	while (n > 0)
+	{
+		n /= base;
+		i++;
+	}
+	return (i);
+}
+
+int	num_len_hex(unsigned int n, int base)
+{
+	int	i;
+
+	i = 0;
+	if (!n)
+		return (1);
+	while (n > 0)
+	{
+		n /= base;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itobase(unsigned long n, int caps, int base)
+{
+	int		len;
+	char	*str;
+
+	len = num_len(n, base);
+	str = ft_calloc(sizeof(char), (len + 1));
+	if (str == NULL)
+		return (NULL);
+	len--;
+	while (len >= 0)
+	{
+		str[len] = "0123456789abcdef"[n % base];
+		if (caps == 1)
+			str[len] = ft_toupper(str[len]);
+		n /= base ;
+		len--;
+	}
+	return (str);
+}
+
+char	*ft_itohex(unsigned int n, int caps, int base)
+{
+	int		len;
+	char	*str;
+
+	len = num_len_hex(n, base);
+	str = ft_calloc(sizeof(char), (len + 1));
+	if (str == NULL)
+		return (NULL);
+	len--;
+	while (len >= 0)
+	{
+		str[len] = "0123456789abcdef"[n % base];
+		if (caps == 1)
+			str[len] = ft_toupper(str[len]);
+		n /= base ;
+		len--;
+	}
+	return (str);
 }
