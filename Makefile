@@ -16,11 +16,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@make --no-print-directory -C $(libft)
-	@mkdir -p temp_libft_objs
-	@cd temp_libft_objs && ar -x ../libft/libft.a
-	@ar -rcs $(NAME) $(OBJ) temp_libft_objs/*.o
-	@rm -rf temp_libft_objs
-	
+	cp libft/libft.a $(NAME)
+	@ar -rcs $(NAME) $(OBJ)
 
 clean :
 	@make clean --no-print-directory -C $(libft)
