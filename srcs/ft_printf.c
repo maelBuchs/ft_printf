@@ -79,6 +79,8 @@ int	ft_printf(const char *str, ...)
 
 	returned = 0;
 	i = 0;
+	if (!str)
+		return (-1);
 	va_start (args, str);
 	while (str[i])
 	{
